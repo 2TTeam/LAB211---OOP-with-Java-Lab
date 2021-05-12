@@ -1,2 +1,3 @@
 # LAB211---OOP-with-Java-Lab
-- May be some Problem solve have Package error, So remember to clear it.
+- Some task solution might have Package error, so remember to clear it.
+- Also edit file path depend on your project path
