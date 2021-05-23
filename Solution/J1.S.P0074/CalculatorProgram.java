@@ -31,7 +31,6 @@ public class CalculatorProgram {
                     
                     rowA=Utility.GetInt("Enter Row Matrix 1:",1,Integer.MAX_VALUE);
                     colA=Utility.GetInt("Enter Column Matrix 1:",1,Integer.MAX_VALUE);
-                    A.inputMatrix(1,rowA,colA);
                     
                     do
                     {      
@@ -41,6 +40,7 @@ public class CalculatorProgram {
                             System.out.println("Invalid matrix size for operator! Please re-enter!");
                         else
                         {
+                            A.inputMatrix(1,rowA,colA);
                             B.inputMatrix(2,rowB,colB);
                             break;
                         }
@@ -63,7 +63,7 @@ public class CalculatorProgram {
                     
                     rowA=Utility.GetInt("Enter Row Matrix 1:",1,Integer.MAX_VALUE);
                     colA=Utility.GetInt("Enter Column Matrix 1:",1,Integer.MAX_VALUE);
-                    A.inputMatrix(1,rowA,colA);
+                    
                     
                     do
                     {   
@@ -73,6 +73,7 @@ public class CalculatorProgram {
                             System.out.println("Invalid matrix size for operator! Please re-enter!");
                         else
                         {
+                            A.inputMatrix(1,rowA,colA);
                             B.inputMatrix(2,rowB,colB);
                             break;
                         }
@@ -93,16 +94,16 @@ public class CalculatorProgram {
                     
                     rowA=Utility.GetInt("Enter Row Matrix 1:",1,Integer.MAX_VALUE);
                     colA=Utility.GetInt("Enter Column Matrix 1:",1,Integer.MAX_VALUE);
-                    A.inputMatrix(1,rowA,colA);
-                    
-                    colB=Utility.GetInt("Enter Column Matrix 2:",1,Integer.MAX_VALUE);  
+                       
                     do
                     {      
-                        rowB=Utility.GetInt("Enter Row Matrix 2:",1,Integer.MAX_VALUE);                      
+                        rowB=Utility.GetInt("Enter Row Matrix 2:",1,Integer.MAX_VALUE);   
+                        colB=Utility.GetInt("Enter Column Matrix 2:",1,Integer.MAX_VALUE);
                         if( colA!=rowB )
                             System.out.println("Invalid matrix size for operator! Please re-enter!");
                         else
                         {
+                            A.inputMatrix(1,rowA,colA);
                             B.inputMatrix(2,rowB,colB);
                             break;
                         }
