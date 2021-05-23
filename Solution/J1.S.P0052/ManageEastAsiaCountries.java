@@ -38,13 +38,13 @@ public class ManageEastAsiaCountries {
         }
         else {          
             String code = Utility.GetString("Enter country code: ",false);
-//          String code = Utility.GetStringByRegex("Enter country code: ","^([a-zA-Z]+ *)+$");
             if (SearchByID(asiaC, code) >= 0) {
                 System.out.println("This country is exist");
                 return;
             } 
             
             String name = Utility.GetString("Enter country name: ",false);
+//          String name = Utility.GetStringByRegex("Enter country code: ","^([a-zA-Z]+ *)*$");
             double area = Utility.GetDouble("Enter total area:  ",0,Double.POSITIVE_INFINITY);
             String terrain = Utility.GetString("Enter terrain of country: ",false);
             asiaC.add(new EastAsiaCountries(code, name, area, terrain));
