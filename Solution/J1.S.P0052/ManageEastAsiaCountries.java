@@ -38,6 +38,7 @@ public class ManageEastAsiaCountries {
         }
         else {          
             String code = Utility.GetString("Enter country code: ",false);
+//          String code = Utility.GetStringByRegex("Enter country code: ","^([a-zA-Z]+ *)*$");
             if (SearchByID(asiaC, code) >= 0) {
                 System.out.println("This country is exist");
                 return;
