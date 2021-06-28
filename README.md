@@ -5,4 +5,4 @@
   <img src="https://user-images.githubusercontent.com/73395529/117985737-26dbb800-b363-11eb-9792-28a1b8c1eb6c.png"/>
 </kbd>
 
-![](https://komarev.com/ghpvc/?username=your-github-username&color=9ecef3)
+![](https://komarev.com/ghpvc/?username=https://github.com/2TTeam&color=9ecef3)
