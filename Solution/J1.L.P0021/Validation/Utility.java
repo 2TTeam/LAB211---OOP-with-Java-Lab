@@ -128,7 +128,7 @@ public class Utility {
                     return inputCourse;
                 }
             }
-            System.out.print("The accpeted List:");
+            System.out.print("The accpeted List: ");
             for(int i=0;i<acceptedList.length;++i){
                     System.out.print(acceptedList[i]+" ");
             }

@@ -64,12 +64,13 @@ public class management {
         }
     }
     void findAndsort(){
-        int choice;
+            int choice;
+            
             System.out.println("1. Find by Name\n"
-            +"2. Sort by Name\n"
+                                +"2. Sort by Name\n"
             );
             
-            choice = Utility.GetInt("Enter your choice: ", 0, 4);
+            choice = Utility.GetInt("Enter your choice: ", 1, 2);
             switch (choice){
                 case 1:
                     findName(Utility.GetString("Enter Name: ", false));
@@ -81,46 +82,172 @@ public class management {
             } 
     }
     void findName(String xName){
+        boolean isEmpty=true;
+        
         System.out.format("%-15s%-15s%-15s%-15s%-15s\n","ID","Name","Semester","Course","Total Course");
         for(int i=0;i<sList.size();++i){
             if( sList.get(i).getStudentName().toLowerCase().contains(xName.toLowerCase()) ){
-                reportById(sList.get(i).getId());
+                isEmpty=false;
+                String xId = sList.get(i).getId();
+                String tempName= sList.get(i).getStudentName();
+                ArrayList<Academic> tempList = reportById(xId);
+                for (Academic Entry : tempList) {
+                    int xTotalCourse=getTotalCourse(xId);
+                    System.out.format("%-15s%-15s%-15d%-15s%-15d\n", xId, tempName,Entry.getSemester(),Entry.getCourse(),xTotalCourse);
+                    
+                }
             }
+        }
+        if(isEmpty==true){
+            System.out.println("Not found!");
         }
     }
     
     void updateAndDelete(){
+        int choice;
+        System.out.println("1. Update\n"
+                                +"2. Delete\n"
+        );
         
+        choice = Utility.GetInt("Enter your choice: ", 1, 2);
+        switch(choice){
+            case 1:
+                Update(Utility.GetString("Enter Id: ", false));
+                break;
+            case 2:
+                Delete(Utility.GetString("Enter Id: ", false));
+                break;
+        }             
+    }
+    void Update(String xId){
+        int x = findID(xId);
+        if(x<0){
+            System.out.println("This Id doesn't exist! ");
+            return;
+        }
+        
+        int choice;
+        System.out.println("1. Update name\n"
+        +"2. Update Academic"
+        );
+        
+        choice = Utility.GetInt("Enter your choice: ", 1, 3);
+        
+        
+        switch(choice){
+            case 1:
+                System.out.format("%-15s%-15s\n","ID","Name");
+                System.out.format("%-15s%-15s\n",xId,sList.get(x).getStudentName());
                 
+                sList.get(x).setStudentName(Utility.GetString("Enter new Name", false));
+                System.out.println("Update successfully!");
+                break;
+            case 2:
+                ArrayList<Academic> tempList = reportById(xId);
+                if(tempList.size()==0){
+                    System.out.println("Empty!");
+                    return;
+                }else {
+                    System.out.format("%-15s%-15s%-15s%-15s%-15s%-15s\n","No","ID","Name","Semester","Course","Total Course");
+                    for(int i=0;i<tempList.size();++i){
+                        int xTotalCourse = getTotalCourse(xId);
+                        System.out.format("%-15d%-15s%-15s%-15d%-15s%-15d\n",i+1,xId,sList.get(x).getStudentName(),tempList.get(i).getSemester(),tempList.get(i).getCourse(),xTotalCourse);
+                    }
+                    int positionInTempList = Utility.GetInt("Enter No: ", 1, tempList.size())-1;
+                    int pos_In_aList = aList.indexOf( tempList.get(positionInTempList) );
+                    
+                    System.out.println("1. Update Semester\n"
+                    +"2. Update Course\n");
+
+                    choice = Utility.GetInt("Enter your choice", 1, 2);
+                    switch(choice){
+                        case 1:
+                            int xSemester = Utility.GetInt("Enter semester: ", 1, Integer.MAX_VALUE);
+                            if(findCourse(xId, xSemester, aList.get(pos_In_aList).getCourse() ) >= 0){
+                                System.err.println("Duplicate Error!");
+                            }else {
+                                aList.get(pos_In_aList).setSemester(xSemester);
+                                System.out.println("Updated Successfully");
+                            }
+                            break;
+                        case 2:
+                            String xCourse = Utility.getInArray(Utility.COURSES_LIST, "Enter Course");
+                            if(findCourse(xId, aList.get(pos_In_aList).getSemester(), xCourse ) >= 0){
+                                System.err.println("Duplicate Error!");
+                            }else {
+                                aList.get(pos_In_aList).setCourse(xCourse);
+                                System.out.println("Updated Successfully");
+                            }
+                            break;
+                    }
+                }
+                break;
+        }
+    }
+    void Delete(String xId){
+        int x = findID(xId);
+        if(x<0){
+            System.out.println("This Id doesn't exist! ");
+            return;
+        }
+        
+        int choice;
+        System.out.println("1. Delete Student\n"
+        +"2. Delete Academic Info"
+        );
+        
+        choice = Utility.GetInt("Enter your choice: ", 1, 2);
+        
+        
+        switch(choice){
+            case 1:
+                sList.remove(x);
+                aList.removeAll(reportById(xId));
+                System.out.println("The student has been removed!");
+                break;
+            case 2:
+                ArrayList<Academic> tempList = reportById(xId);
+                if(tempList.size()==0){
+                    System.out.println("Empty!");
+                    return;
+                }else {
+                    System.out.format("%-15s%-15s%-15s%-15s%-15s%-15s\n","No","ID","Name","Semester","Course","Total Course");
+                    for(int i=0;i<tempList.size();++i){
+                        int xTotalCourse = getTotalCourse(xId);
+                        System.out.format("%-15d%-15s%-15s%-15d%-15s%-15d\n",i+1,xId,sList.get(x).getStudentName(),tempList.get(i).getSemester(),tempList.get(i).getCourse(),xTotalCourse);
+                    }
+                    int position_In_tempList = Utility.GetInt("Enter No: ", 1, tempList.size())-1;
+                    
+                    aList.remove( tempList.get(position_In_tempList) );
+                    System.out.println("This academic info has been deleted!");
+                }
+                break;
+        }
     }
     void report(){
         System.out.format("%-15s%-15s%-15s%-15s%-15s\n","ID","Name","Semester","Course","Total Course");
-        for(int i=0;i<sList.size();++i){
-            reportById(sList.get(i).getId());
-        }
-    }
-    //    
-    void reportById(String xId){   
-        for(int i=0;i<aList.size();++i){
-            
-            if(aList.get(i).getId().equalsIgnoreCase(xId)) {
-                if(getTotalCourse(xId)==0){
-                   System.out.format("%-15s%-15s%-15s%-15s%-15d\n",
-                           xId
-                           ,sList.get(findID(xId)).getStudentName()
-                           ,""
-                           ,""
-                           ,0);
-                }else{
-                     System.out.format("%-15s%-15s%-15d%-15s%-15d\n",
-                           xId
-                           ,sList.get(findID(xId)).getStudentName()
-                           ,aList.get(i).getSemester()
-                           ,aList.get(i).getCourse()
-                           ,getTotalCourse(xId));
+        for (Student student : sList) {
+            ArrayList<Academic> tmp = reportById(student.getId());
+            if(tmp.size()==0){
+                System.out.format("%-15s%-15s%-15s%-15s%-15d\n",student.getId(),student.getStudentName(),"","",0);
+            }else{
+                for (Academic Entry : tmp) {
+                    int xTotalCourse = getTotalCourse(student.getId());
+                    System.out.format("%-15s%-15s%-15s%-15s%-15d\n",student.getId(),student.getStudentName(),Entry.getSemester(),Entry.getCourse(),xTotalCourse);
                 }
             }
         }
+    }
+    //    
+    ArrayList<Academic> reportById(String xId){   
+        ArrayList<Academic> res = new ArrayList<Academic>();
+        
+        for(int i=0;i<aList.size();++i){
+            if(aList.get(i).getId().equalsIgnoreCase(xId)){
+                res.add(aList.get(i));
+            }
+        }
+        return res;
     }
     int getTotalCourse(String xId){
         int res=0;

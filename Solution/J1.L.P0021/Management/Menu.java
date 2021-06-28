@@ -10,6 +10,9 @@ import Validation.Utility;
  *
  * @author Ryuunosuke Akasaka
  */
+
+//This class is not used in this Problem
+
 public class Menu {
     private String[] hints;
     private int n = 0; //currentSizeOfhint
