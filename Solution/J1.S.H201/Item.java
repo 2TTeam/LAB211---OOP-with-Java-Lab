@@ -22,8 +22,13 @@ public class Item {
         this.price = price;
         this.discount = discount;
     }
-        
 
+    public String getIid() {
+        return Iid;
+    }
+        
+    
+    
     public double getPrice() {
         return price;
     }

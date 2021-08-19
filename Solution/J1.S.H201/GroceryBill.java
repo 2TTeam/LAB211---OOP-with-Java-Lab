@@ -24,7 +24,7 @@ public class GroceryBill {
     
     public void add(Item i) {
         list_id_item.add(i);
-        total += i.getPrice()  ;
+        total += i.getPrice();
     }
     
     public double getTotal() {
@@ -33,10 +33,10 @@ public class GroceryBill {
     
     public void printReceipt() {
         
-        System.out.println("idItem" + "\t" + "price" + "\t" + "discount");
+        System.out.println("idItem" + "\t" + "price" );
         
         for(int i = 0; i < list_id_item.size(); ++i) {
-            System.out.println(list_id_item.get(i));
+            System.out.println(list_id_item.get(i).getIid()+"\t"+ list_id_item.get(i).getPrice() );
         }
     }
 

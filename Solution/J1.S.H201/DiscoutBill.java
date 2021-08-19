@@ -29,9 +29,6 @@ public class DiscoutBill extends GroceryBill{
     }
 
     
-    
-    
-    
     public double getDiscountAmount() {
         double res = 0;
         LinkedList<Item> temp = new LinkedList<Item>(super.getList_id_item());
@@ -52,6 +49,22 @@ public class DiscoutBill extends GroceryBill{
     
     public double getDiscountPercent() {
         return this.getDiscountAmount()/super.getTotal();
+    }
+
+    @Override
+    public void printReceipt() {
+        if(preferred == true) {
+            System.out.println("idItem" + "\t" + "price" + "\t" + "discount");
+        } else {
+           super.printReceipt();
+           return;
+        }
+        
+        LinkedList<Item> temp = new LinkedList<Item>(super.getList_id_item());
+        
+        for(int i = 0; i < temp.size(); ++i) {
+            System.out.println(temp.get(i));
+        }
     }
     
     
