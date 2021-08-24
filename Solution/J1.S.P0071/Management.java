@@ -66,7 +66,7 @@ public class Management {
        int xTaskTypeID = Utility.GetInt("Enter Task Type ID: ", 1, 4);
        Date xdate = Utility.GetDate("Enter date: ");
        double xFrom = getFromTo("Enter From: ",8, 17.5);
-       double xTo = getFromTo("Enter To: ", xFrom, 17.5);
+       double xTo = getFromTo("Enter To: ", xFrom+0.1, 17.5);
        String xAssignee = Utility.GetString("Enter Assignee: ", false);
        String xReviewer = Utility.GetString("Enter Reviewer", false);
        
@@ -82,7 +82,7 @@ public class Management {
            if(a % 5 == 0) {
                return n;
            }
-           
+          
        }while(true);
    }
     
@@ -119,7 +119,7 @@ public class Management {
                }
            }
            
-           double xFrom = GetDoubleAndnope("From: ", 8, 17.5);
+           double xFrom = GetFromToAndnope("From: ", 8, 17.5);
            if(! (xFrom == -1) ) {
                myList.get(pos).setFrom(xFrom);
            }
@@ -128,7 +128,8 @@ public class Management {
            double xTo;
            
            do{
-               xTo = GetDoubleAndnope("To: ", myList.get(pos).getFrom(), 17.5);
+               
+               xTo = GetFromToAndnope("To: ", myList.get(pos).getFrom()+0.1, 17.5);
                if(xTo == -1 && myList.get(pos).getTo() < myList.get(pos).getFrom()){
                    System.out.println("To must be larger than from!");
                } else {
@@ -184,7 +185,8 @@ public class Management {
    
    public void display(){
        LinkedList<Task> displayList = new LinkedList<Task>(myList);
-       Collections.sort(displayList);
+         Collections.sort(displayList);
+//       Collections.sort(displayList, new CompareByID_Desc());
        
        System.out.println("                     -----Task descending order-----");
        System.out.format("%-15s%-15s%-15s%-15s%-15s%-15s%-15s\n","ID","Name", "TaskType","Date","Time", "Assignee","Reviewer");
@@ -218,8 +220,8 @@ public class Management {
         }while(true);
         
     }
-   
-    public double GetDoubleAndnope(String msg, double min,double max){
+
+    public double GetFromToAndnope(String msg, double min,double max){
         double i;
         Scanner sc = new Scanner(System.in);
         do{
@@ -231,7 +233,14 @@ public class Management {
                 }
                 
                 i=Double.parseDouble(s);
-                if(i>=min && i<=max) return i;
+                if(i>=min && i<=max) {
+                    int a = (int) (i*10);
+                    if( a % 5 ==0) {
+                        return i;
+                    }else{
+                        System.out.println("Wrong format");
+                    }
+                }
                 else System.out.println("Out of range");
                 
             } catch (Exception e) {

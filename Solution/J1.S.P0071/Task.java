@@ -121,8 +121,6 @@ public class Task implements Comparable<Task>{
     public int compareTo(Task o) {
         return -(this.getID() - o.getID());
     }
-    
-    
 
     @Override
     public String toString() {
@@ -135,3 +133,5 @@ public class Task implements Comparable<Task>{
     
     
 }
+
+
