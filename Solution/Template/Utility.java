@@ -15,7 +15,9 @@ import java.util.regex.Pattern;
 public class Utility { 
     public static final String PHONE_PATTERN="^[\\d]{10,13}$";
     public static final String EMAIL_PATTERN="^[a-zA-Z]\\w+@\\w+(\\.\\w+){1,2}$";
-    public static final String[] COURSES_LIST={"C/C++","Java",".Net"};
+    public static final String BIN_PATTERN="[01]+";
+    public static final String DEC_PATTERN="[0-9]+";
+    public static final String HEX_PATTERN="[0-9a-fA-F]";
     
     public static int GetInt(String msg, int min,int max){
         int i;
