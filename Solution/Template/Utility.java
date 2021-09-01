@@ -12,13 +12,10 @@ import java.util.regex.Pattern;
  *
  * @author Ryuunosuke Akasaka
  */
-public class Utility {
+public class Utility { 
     public static final String PHONE_PATTERN="^[\\d]{10,13}$";
     public static final String EMAIL_PATTERN="^[a-zA-Z]\\w+@\\w+(\\.\\w+){1,2}$";
-    public static final String BIN_PATTERN="[01]+";
-    public static final String DEC_PATTERN="[0-9]+";
-    public static final String HEX_PATTERN="[0-9a-fA-F]";
-    
+    public static final String[] COURSES_LIST={"C/C++","Java",".Net"};
     
     public static int GetInt(String msg, int min,int max){
         int i;
@@ -120,12 +117,48 @@ public class Utility {
         }while(true);
         
     }
-
-    public static String DayOfWeek(Date d){
-        SimpleDateFormat SDF =  new SimpleDateFormat("EEEE");
-        return SDF.format(d);
+    
+    public static String getInArray(String[] acceptedList,String msg){
+        String inputCourse="";
+        Scanner sc = new Scanner(System.in);
+        do{
+            inputCourse = Utility.GetString(msg, false);
+            for(int i=0;i<acceptedList.length;++i){
+                if(inputCourse.equalsIgnoreCase(acceptedList[i])){
+                    return inputCourse;
+                }
+            }
+            System.out.print("The accpeted List: ");
+            for(int i=0;i<acceptedList.length;++i){
+                    System.out.print(acceptedList[i]+" ");
+            }
+            System.out.println("");
+        }while(true);
     }
-    
-    
+
+    public static String getDateAndnope(String msg) {
+        Scanner sc = new Scanner(System.in);
+        
+        SimpleDateFormat SDF = new SimpleDateFormat("dd/MM/yyyy");
+	//MM, MMM, MMMM
+        Date d = new Date();
+        SDF.setLenient(false);
+
+        do {
+            System.out.print(msg);
+            String s = sc.nextLine();
+            if(s.equals("nope")) {
+                return "nope";
+            }
+            try {
+                d = SDF.parse(s);
+                return SDF.format(d).toString();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+ 
+        }while(true);
+
+    }
     
 }
