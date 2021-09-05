@@ -60,7 +60,7 @@ public class Utility {
             s = sc.nextLine();
             if(isEmpty == true) return s;
             else{
-                if(s.equals("")){
+                if(s.trim().equals("")){
                     System.err.println("String must have atleast 1 character");
                 } else return s;
             }
