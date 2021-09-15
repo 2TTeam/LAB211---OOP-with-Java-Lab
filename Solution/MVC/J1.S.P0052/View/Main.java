@@ -3,20 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package J1.S.P0052;
-
-import Template.Utility;
-import java.util.*;
-
+package View;
+import Controller.*;
 /**
  *
  * @author Ryuunosuke Akasaka
  */
-public class main {
+public class Main {
     public static void main(String[] args) {
         
         ManageEastAsiaCountries m = new ManageEastAsiaCountries();
-        View v = new View(m);
+        
         int choice;
         
         do {
@@ -27,28 +24,36 @@ public class main {
                                 "5. Exit.\n");
             
             
-            choice = J1.S.P0052.Utility.GetInt("Enter your choice: ",
+            choice = Utility.GetInt("Enter your choice: ",
                     1,
                     5);
                        
             switch(choice) {
                 case 1:
-                    v.addCountry();
+                    if(m.canAdd() == true) {
+                        String xCountryCode = Utility.GetString("Enter Country Code: ", false);
+                        
+                        if( !m.isDuplicate(xCountryCode) ) {
+                            String xCountryName = Utility.GetString("Enter Country Name: ", false);
+                            float xTotalArea = (float) Utility.GetDouble("Enter Total Area: ", 0.0001, Double.POSITIVE_INFINITY);
+                            String xCountryTerrain = Utility.GetString("Enter Country Terrain: ", false); 
+                            m.addCountry(xCountryCode, xCountryName, xTotalArea, xCountryTerrain);
+                        }
+                    } 
                 break;
                 case 2:
-                    v.displayCountry();
+                    m.displayCountry();
                 break;
                 case 3:
-                    v.searchCountry();
+                    String xName = Utility.GetString("Enter name: ", false);
+                    m.searchCountry(xName);
                 break;
                 case 4:
-                    v.displaySortByCountryName();
+                    m.displaySortByCountryName();
                 break;
             }
             
         }while(choice != 5);
-    
-    
     }
     
 }
